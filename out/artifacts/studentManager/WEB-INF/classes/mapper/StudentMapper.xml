@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tzy.mapper.StudentMapper">
+
+    <resultMap id="getStudentInfo" type="com.tzy.pojo.Student">
+        <id column="sid" property="sid"></id>
+        <result column="sname" property="sname"></result>
+        <result column="age" property="age"></result>
+        <result column="sex" property="sex"></result>
+        <result column="phone" property="phone"></result>
+        <association property="grade" javaType="com.tzy.pojo.Grade">
+            <id column="gid" property="gid"></id>
+            <result column="gname" property="gname"></result>
+        </association>
+    </resultMap>
+
+
+
+    <select id="getStudentList" resultMap="getStudentInfo">
+        SELECT s.sid, s.sname, s.age, s.sex, s.phone, g.gid, g.gname
+        FROM student s
+                 LEFT JOIN grade g ON s.gid = g.gid
+    </select>
+
+
+</mapper>
